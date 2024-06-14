@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CondLogAPI.application.Commands.CreateUserCommand;
+using CondLogAPI.application.Commands.UpdateUserCommand;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
 namespace CondLogAPI.Controllers
@@ -6,6 +9,13 @@ namespace CondLogAPI.Controllers
     [Route("Api/users")]
     public class UserController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public UserController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpGet]
         public IActionResult GetAllUsers()
         {

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CondLogAPI.application.Commands.CreateUserCommand
+namespace CondLogAPI.Infraestructure.Persistance
 {
-    public class CreateUserCommandHandler
+    public class CondLogDbContext
     {
-
     }
 }
