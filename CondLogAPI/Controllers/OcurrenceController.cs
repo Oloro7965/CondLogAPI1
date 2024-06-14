@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CondLogAPI.application.Commands.CreateOcurrenceCommand;
+using CondLogAPI.application.Commands.UpdateOcurrenceCommand;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CondLogAPI.Controllers
 {

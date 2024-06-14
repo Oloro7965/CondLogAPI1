@@ -16,6 +16,7 @@ namespace CondLogAPI.Core.Domain.Entities
             Block = block;
             Email = email;
             Password = password;
+            IsDeleted = false;
         }
 
         public string Name { get; private set; }
@@ -26,5 +27,17 @@ namespace CondLogAPI.Core.Domain.Entities
         public string Password { get; private set; }
         public List<Ocurrence> UserOcurrences { get;private set; }
         public bool IsDeleted { get; private set; }
+        public void Update(string phoneNumber, string apartment, string block, string email, string password)
+        {
+            PhoneNumber = phoneNumber;
+            Apartment = apartment;
+            Block = block;
+            Email = email;
+            Password = password;
+        }
+        public void Delete()
+        {
+            IsDeleted = true;
+        }
     }
 }

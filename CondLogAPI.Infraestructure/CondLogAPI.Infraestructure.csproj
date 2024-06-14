@@ -24,4 +24,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CondLogAPI.Core\CondLogAPI.Core.csproj" />
+  </ItemGroup>
+
 </Project>
