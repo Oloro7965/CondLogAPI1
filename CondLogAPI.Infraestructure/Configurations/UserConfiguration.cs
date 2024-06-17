@@ -13,6 +13,7 @@ namespace CondLogAPI.Infraestructure.Configurations
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<User> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.Ignore(x => x.UserOcurrences);
             builder.HasMany(x => x.UserOcurrences).
                 WithOne(x => x.user).HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);

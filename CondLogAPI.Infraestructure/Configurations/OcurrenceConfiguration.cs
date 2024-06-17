@@ -13,7 +13,7 @@ namespace CondLogAPI.Infraestructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Ocurrence> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(x => x.Id);
         }
     }
 }
