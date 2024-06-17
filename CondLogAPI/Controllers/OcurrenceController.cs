@@ -1,30 +1,55 @@
 ﻿using CondLogAPI.application.Commands.CreateOcurrenceCommand;
 using CondLogAPI.application.Commands.UpdateOcurrenceCommand;
+using CondLogAPI.application.Queries.GetAllOcurrences;
+using CondLogAPI.application.Queries.GetAllUsers;
+using CondLogAPI.application.Queries.GetOcurrence;
+using CondLogAPI.application.Queries.GetUser;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CondLogAPI.Controllers
 {
     [Route("api/ocurrences")]
+    [ApiController]
     public class OcurrenceController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetAll()
+        private readonly IMediator _mediator;
+
+        public OcurrenceController(IMediator mediator)
         {
-            return Ok();
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var Query = new GetAllOcurrencesQuery();
+
+            var ocurrences = await _mediator.Send(Query);
+
+            return Ok(ocurrences);
         }
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
-            return Ok();
+            var query = new GetOcurrenceQuery(id);
+
+            var ocurrence = await _mediator.Send(query);
+
+            return Ok(ocurrence);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] CreateOcurrenceCommand command) {
-            return Ok();
+        public async Task<IActionResult> Post([FromBody] CreateOcurrenceCommand command) {
+            var ocurrenceId = await _mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetById), new { id = ocurrenceId }, command);
         }
-        [HttpPut]
-        public IActionResult UpdateOcurrence([FromBody] UpdateOcurrenceCommand command)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOcurrence([FromBody] UpdateOcurrenceCommand command)
         {
-            return Ok();
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

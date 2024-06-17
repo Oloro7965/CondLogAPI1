@@ -9,7 +9,7 @@ namespace CondLogAPI.application.Commands.CreateOcurrenceCommand
 {
     public class CreateOcurrenceCommand:IRequest<Guid>
     {
-        public string UserName { get; set;}
+        public string Title { get; set; }
         public string PhoneNumber { get; set;}
         public string Apartment { get; set;}
         public string Block { get; set;}

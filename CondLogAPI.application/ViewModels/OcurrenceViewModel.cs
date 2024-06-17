@@ -8,7 +8,16 @@ namespace CondLogAPI.application.ViewModels
 {
     public class OcurrenceViewModel
     {
-        public string UserName { get; private set; }
+        public OcurrenceViewModel(string title, string apartment, string block, string subject, DateTime created)
+        {
+            Title = title;
+            Apartment = apartment;
+            Block = block;
+            Subject = subject;
+            Created = created;
+        }
+
+        public string Title { get; private set; }
         public string Apartment { get; private set; }
         public string Block { get; private set; }
         public string Subject { get; private set; }

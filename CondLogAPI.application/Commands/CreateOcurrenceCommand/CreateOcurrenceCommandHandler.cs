@@ -20,7 +20,7 @@ namespace CondLogAPI.application.Commands.CreateOcurrenceCommand
 
         public async Task<Guid> Handle(CreateOcurrenceCommand request, CancellationToken cancellationToken)
         {
-            var ocurrence = new Ocurrence(request.UserName,request.PhoneNumber,request.Apartment,request.Block,request.Email
+            var ocurrence = new Ocurrence(request.Title,request.PhoneNumber,request.Apartment,request.Block,request.Email
                 ,request.Subject);
             await _ocurrenceRepository.AddAsync(ocurrence);
             return ocurrence.Id;

@@ -17,9 +17,15 @@ namespace CondLogAPI.application.Commands.UpdateOcurrenceCommand
             _ocurrenceRepository = ocurrenceRepository;
         }
 
-        public Task<Unit> Handle(UpdateOcurrenceCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateOcurrenceCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var ocurrence = await _ocurrenceRepository.GetByIdAsync(request.Id);
+
+            ocurrence.Update(request.PhoneNumber, request.Email,request.Subject);
+
+            _ocurrenceRepository.SaveChangesAsync();
+
+            return Unit.Value;
         }
     }
 }

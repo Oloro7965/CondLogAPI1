@@ -8,9 +8,9 @@ namespace CondLogAPI.Core.Domain.Entities
 {
     public class Ocurrence:BaseEntity
     {
-        public Ocurrence(string userName, string phoneNumber, string apartment, string block, string email, string subject)
+        public Ocurrence(string title, string phoneNumber, string apartment, string block, string email, string subject)
         {
-            UserName = userName;
+            Title = title;
             PhoneNumber = phoneNumber;
             Apartment = apartment;
             Block = block;
@@ -19,12 +19,18 @@ namespace CondLogAPI.Core.Domain.Entities
             Created=DateTime.Now;
         }
 
-        public string UserName { get; private set; }
+        public string Title { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Apartment { get; private set; }
         public string Block { get; private set; }
         public string Email { get; private set; }
         public string Subject { get;private  set; }
         public DateTime Created { get; private set; }
+        public void Update(string phoneNumber,string email,string subject)
+        {
+            PhoneNumber = phoneNumber;
+            Email = email;
+            Subject = subject;
+        }
     }
 }

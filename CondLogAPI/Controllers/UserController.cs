@@ -1,12 +1,17 @@
 ﻿using CondLogAPI.application.Commands.CreateUserCommand;
+using CondLogAPI.application.Commands.DeleteUserCommand;
 using CondLogAPI.application.Commands.UpdateUserCommand;
+using CondLogAPI.application.Queries.GetAllUsers;
+using CondLogAPI.application.Queries.GetUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CondLogAPI.Controllers
 {
     [Route("Api/users")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -17,28 +22,50 @@ namespace CondLogAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
-            return Ok();
+            var Query = new GetAllUsersQuery();
+
+            var users = await _mediator.Send(Query);
+
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserById(Guid id) {
-            return Ok();
+        public async Task<IActionResult> GetUserById(Guid id) {
+
+            var query = new GetUserQuery(id);
+
+            var user = await _mediator.Send(query);
+
+            return Ok(user);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] CreateUserCommand command)
+        public async Task<IActionResult> Post([FromBody] CreateUserCommand command)
         {
-            return Ok();
+            var userId = await _mediator.Send(command);
+
+            return CreatedAtAction(nameof(GetUserById), new { id = userId }, command);
         }
-        [HttpPut]
-        public IActionResult Update([FromBody] UpdateUserCommand command)
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
         {
-            return Ok();
+            //command.Id = id;
+
+            await _mediator.Send(command);
+
+            return NoContent();
         }
-        [HttpDelete]
-        public IActionResult Delete(Guid id) {
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id) {
+
+            var command = new DeleteUserCommand(id);
+
+            await _mediator.Send(command);
+
+            //_userService.Delete(id);
             return Ok();
         }
     }
