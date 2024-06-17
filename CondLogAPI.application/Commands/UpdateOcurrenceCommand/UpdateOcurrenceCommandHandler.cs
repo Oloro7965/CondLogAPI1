@@ -21,7 +21,7 @@ namespace CondLogAPI.application.Commands.UpdateOcurrenceCommand
         {
             var ocurrence = await _ocurrenceRepository.GetByIdAsync(request.Id);
 
-            ocurrence.Update(request.PhoneNumber, request.Email,request.Subject);
+            ocurrence.Update(request.Title,request.PhoneNumber, request.Email,request.Subject);
 
             _ocurrenceRepository.SaveChangesAsync();
 

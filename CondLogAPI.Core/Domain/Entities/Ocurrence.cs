@@ -26,8 +26,11 @@ namespace CondLogAPI.Core.Domain.Entities
         public string Email { get; private set; }
         public string Subject { get;private  set; }
         public DateTime Created { get; private set; }
-        public void Update(string phoneNumber,string email,string subject)
+        public Guid UserId { get; private set; }
+        public User user { get; private set; }
+        public void Update(string title,string phoneNumber,string email,string subject)
         {
+            Title = title;
             PhoneNumber = phoneNumber;
             Email = email;
             Subject = subject;
